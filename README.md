@@ -4,6 +4,8 @@ osric-cgi
 A CGI script for creating an OSRIC character sheet and spitting out the JSON.
 This is intended to replace the previous project,
 [osric-character-sheet-to-json](https://github.com/kirbyman62/osric-character-sheet-to-json).
+It intends to walk the player through the entire character creation process,
+and thus aims to be quite comprehensive.
 
 Usage
 -----
