@@ -82,8 +82,8 @@ sub generate_gold
 	my $self = shift;
 
 	# Get the classes and sort by the highest starting gold (see page 28): 
-	my @classes = @{$self->{personal}->{classes}};
-	sort { $a->max_starting_gold <=> $b->max_starting_gold } @classes;
+	my @sorted = sort { $a->max_starting_gold <=> $b->max_starting_gold }
+		@{$self->{personal}->{classes}};
 
 	# Generate the starting gold:
 	$self->{wealth}->{coins} = $classes[0]->get_gold;
