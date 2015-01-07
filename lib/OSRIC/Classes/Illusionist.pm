@@ -1,4 +1,4 @@
-package OSRIC::Classes::Assassin;
+package OSRIC::Classes::Illusionist;
 use parent qw(Classes);
 use OSRIC::Util qw/d/;
 
