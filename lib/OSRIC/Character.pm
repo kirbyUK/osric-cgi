@@ -72,7 +72,7 @@ sub generate_stats
 		# * Class specific boosts.
 		# * Perhaps an alternate system where players can choose what number
 		#   to allocate to what stat.
-		$self->{stats}->{$stat} = (d(6) + d(6) + d(6));
+		$self->{stats}->{$stat} = d(6, 3);
 	}
 } 
 
