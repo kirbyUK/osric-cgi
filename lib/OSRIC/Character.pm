@@ -1,15 +1,15 @@
 package OSRIC::Character;
 
-use OSRIC::Classes;
-use OSRIC::Classes::Assassin;
-use OSRIC::Classes::Cleric;
-use OSRIC::Classes::Druid;
-use OSRIC::Classes::Fighter;
-use OSRIC::Classes::Illusionist;
-use OSRIC::Classes::MagicUser;
-use OSRIC::Classes::Paladin;
-use OSRIC::Classes::Ranger;
-use OSRIC::Classes::Thief;
+use OSRIC::Class;
+use OSRIC::Class::Assassin;
+use OSRIC::Class::Cleric;
+use OSRIC::Class::Druid;
+use OSRIC::Class::Fighter;
+use OSRIC::Class::Illusionist;
+use OSRIC::Class::MagicUser;
+use OSRIC::Class::Paladin;
+use OSRIC::Class::Ranger;
+use OSRIC::Class::Thief;
 
 use OSRIC::Util qw/d/;
 use JSON qw/encode_json/;
@@ -20,9 +20,9 @@ sub new
 	my $class = shift;
 	my $character =
 	{
+		irc => "", # The player's irc nick, not found on the character sheet.
 		personal =>
 		{
-			irc => "", # The player's irc nick, not found on the character sheet.
 			name => "",
 			classes => [ ],
 			alignment => "",
@@ -82,11 +82,12 @@ sub generate_gold
 	my $self = shift;
 
 	# Get the classes and sort by the highest starting gold (see page 28): 
-	my @sorted = sort { $a->max_starting_gold <=> $b->max_starting_gold }
-		@{$self->{personal}->{classes}};
+	my @sorted = sort { "OSRIC::Class::$a"->max_starting_gold <=> 
+						"OSRIC::Class::$b"->max_starting_gold }
+						@{$self->{personal}->{classes}};
 
 	# Generate the starting gold:
-	$self->{wealth}->{coins} = $classes[0]->get_gold;
+	$self->{wealth}->{coins} = "OSRIC::Class::$classes[0]"->get_gold;
 }
 
 # Encodes the character to JSON:
