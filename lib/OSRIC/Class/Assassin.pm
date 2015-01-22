@@ -1,5 +1,5 @@
-package OSRIC::Classes::Assassin;
-use parent qw(OSRIC::Classes);
+package OSRIC::Class::Assassin;
+use parent qw(OSRIC::Class);
 use OSRIC::Util qw/d/;
 
 # A sub to get the maximum amount of starting gold (for sorting) and one to get

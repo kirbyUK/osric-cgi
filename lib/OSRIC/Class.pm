@@ -1,4 +1,8 @@
-package OSRIC::Classes;
+package OSRIC::Class;
+
+# A list of the classes:
+my @CLASSES = qw/Assassin Cleric Druid Fighter Illusionist MagicUser Paladin
+				 Ranger Thief/;
 
 # A sub to get the maximum amount of starting gold (for sorting) and one to get
 # an actual amount of starting gold: 

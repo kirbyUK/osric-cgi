@@ -1,5 +1,5 @@
-package OSRIC::Classes::Paladin;
-use parent qw(OSRIC::Classes);
+package OSRIC::Class::Fighter;
+use parent qw(OSRIC::Class);
 use OSRIC::Util qw/d/;
 
 # A sub to get the maximum amount of starting gold (for sorting) and one to get
@@ -11,12 +11,12 @@ sub get_gold { (((d(6) + d(6) + d(6)) + 2) * 10) } # (3d6 + 2) * 10
 sub minimum_scores
 {
 	{
-		str => 12,
+		str => 9,
 		dex => 6,
-		con => 9,
-		int => 9,
-		wis => 13,
-		cha => 17,
+		con => 7,
+		int => 3,
+		wis => 6,
+		cha => 6,
 	}
 }
 
