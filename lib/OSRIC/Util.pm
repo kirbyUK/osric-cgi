@@ -12,7 +12,7 @@ sub d
 	my $n = shift // 1;
 
 	my $i = 0;
- 	$i += int(rand($range)); 
+ 	$i += (int(rand($range)) + 1) for(1..$n); 
 	return $i;
 }
 
