@@ -1,5 +1,5 @@
 package OSRIC::Race::Gnome;
-use parent qw(OSRIC::Races);
+use parent qw(OSRIC::Race);
 use OSRIC::Util qw/d/;
 
 # The stat buffs/nerfs a race gives:
@@ -31,7 +31,7 @@ sub ages
 		cleric 		=> sub { 300 + d(12, 3) },
 		druid 		=> sub { 300 + d(12, 3) },
 		fighter 	=> sub { 60 + d(4, 5) },
-		illusionist => sub { 100 + d(12, 2) }
+		illusionist => sub { 100 + d(12, 2) },
 		magicuser 	=> sub { 100 + d(12, 2) },
 		paladin 	=> sub { 60 + d(4, 5) },
 		ranger 		=> sub { 60 + d(4, 5) },

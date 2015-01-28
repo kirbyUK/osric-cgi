@@ -1,5 +1,5 @@
 package OSRIC::Race::Human;
-use parent qw(OSRIC::Races);
+use parent qw(OSRIC::Race);
 use OSRIC::Util qw/d/;
 
 # The stat buffs/nerfs a race gives:

@@ -1,5 +1,7 @@
 package OSRIC::Races;
 
+my @races = qw/Dwarf Elf Gnome HalfElf Halfling HalfOrc Human/;
+
 # The stat buffs/nerfs a race gives:
 sub stats_boosts
 {
