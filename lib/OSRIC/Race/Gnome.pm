@@ -1,4 +1,4 @@
-package OSRIC::Races::HalfElf;
+package OSRIC::Race::Gnome;
 use parent qw(OSRIC::Races);
 use OSRIC::Util qw/d/;
 
@@ -18,8 +18,8 @@ sub stats_boosts
 # The permitted classes:
 sub permitted_classes
 {
-	[ "Assassin", "Cleric", "Fighter", "MagicUser", "Ranger", "Thief",
-	[ "Cleric", "Fighter" ], [ "Cleric", "Ranger" ],
+	[ [ "Assassin" ], [ "Cleric" ], [ "Fighter" ], [ "Illusionist" ],
+	[ "Thief" ], [ "Fighter", "Illusionist" ], [ "Fighter", "Thief" ],
 	[ "Illusionist", "Thief" ] ]
 }
 
@@ -27,15 +27,15 @@ sub permitted_classes
 sub ages
 {
 	{
-		assassin 	=> sub { my $i = 0; $i += d(4) for(1..5); $i += 80; },
-		cleric 		=> sub { my $i = 0; $i += d(12) for(1..3); $i += 300; },
-		druid 		=> sub { 0 },
-		fighter 	=> sub { my $i = 0; $i += d(4) for(1..5); $i += 60; },
-		illusionist => sub { my $i = 0; $i += d(12) for(1..2); $i += 100; }
-		magicuser 	=> sub { 0 },
-		paladin 	=> sub { 0 },
-		ranger 		=> sub { 0 },
-		theif 		=> sub { my $i = 0; $i += d(4) for(1..5); $i += 80; },
+		assassin 	=> sub { 80 + d(4, 5) },
+		cleric 		=> sub { 300 + d(12, 3) },
+		druid 		=> sub { 300 + d(12, 3) },
+		fighter 	=> sub { 60 + d(4, 5) },
+		illusionist => sub { 100 + d(12, 2) }
+		magicuser 	=> sub { 100 + d(12, 2) },
+		paladin 	=> sub { 60 + d(4, 5) },
+		ranger 		=> sub { 60 + d(4, 5) },
+		theif 		=> sub { 80 + d(4, 5) },
 	}
 }
 

@@ -1,4 +1,4 @@
-package OSRIC::Races::Dwarf
+package OSRIC::Race::Dwarf
 use parent qw(OSRIC::Races);
 use OSRIC::Util qw/d/;
 
@@ -18,22 +18,23 @@ sub stats_boosts
 # The permitted classes:
 sub permitted_classes
 {
-	[ "Assassin", "Cleric", "Fighter", "Thief", [ "Fighter", "Thief" ] ]
+	[ [ "Assassin" ], [ "Cleric" ], [ "Fighter" ], [ "Thief" ],
+	[ "Fighter", "Thief" ] ]
 }
 
 # A hash of subs to generate the starting age based on class:
 sub ages
 {
 	{
-		assassin 	=> sub { (75 + (d(6) + d(6) + d(6))) },
-		cleric 		=> sub { (250 + (d(20) + d(20))) },
-		druid 		=> sub { 0 },
-		fighter 	=> sub { (40 + (d(4) + d(4) + d(4) + d(4) + d(4))) },
+		assassin 	=> sub { 75 + d(6, 3) },
+		cleric 		=> sub { 250 + d(20, 2) },
+		druid 		=> sub { 250 + d(20, 2) },
+		fighter 	=> sub { 40 + d(4, 5) },
 		illusionist => sub { 0 },
 		magicuser 	=> sub { 0 },
-		paladin 	=> sub { 0 },
-		ranger 		=> sub { 0 },
-		theif 		=> sub { (75 + (d(6) + d(6) + d(6))) },
+		paladin 	=> sub { 40 + d(4, 5) },
+		ranger 		=> sub { 40 + d(4, 5) },
+		theif 		=> sub { 75 + d(6, 3) },
 	}
 }
 
