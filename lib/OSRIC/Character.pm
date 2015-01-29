@@ -1,5 +1,14 @@
 package OSRIC::Character;
 
+use OSRIC::Race;
+use OSRIC::Race::Dwarf;
+use OSRIC::Race::Elf;
+use OSRIC::Race::Gnome;
+use OSRIC::Race::HalfElf;
+use OSRIC::Race::Halfling;
+use OSRIC::Race::HalfOrc;
+use OSRIC::Race::Human;
+
 use OSRIC::Class;
 use OSRIC::Class::Assassin;
 use OSRIC::Class::Cleric;
@@ -69,12 +78,43 @@ sub generate_stats
 	for my $stat(keys %{$self->{stats}})
 	{
 		# TODO:
-		# * Class specific boosts.
-		# * Perhaps an alternate system where players can choose what number
-		#   to allocate to what stat.
+		# * A system where players can choose what number to allocate to what
+		#	stat.
 		$self->{stats}->{$stat} = d(6, 3);
 	}
 } 
+
+# Return a list of available races based on the player's stats:
+sub get_available_races
+{
+	my $self = shift;
+	my @races = @OSRIC::Race::races;
+
+	# Loop over each race:
+	for my $race(@OSRIC::Race::races)
+	{
+		# Get the stat boosts and racial limitations of this race:
+		my $stats_boosts = "OSRIC::Race::$race"->stats_boosts;
+		my $racial_limitations = "OSRIC::Race::$race"->racial_limitations;
+
+		# Loop over each stat:
+		for my $stat(keys %{$self->{stats}})
+		{
+			# Add any class boosts:
+			my $real = $self->{stats}->{$stat} + $stats_boosts->{$stat};
+
+			# Check if this stat fits the range:
+			if(($real < $racial_limitations->{$stat}->{min}) ||
+			($real > $racial_limitations->{$stat}->{max}))
+			{
+				# If not, remove it from the list and move onto the next race:
+				@races = grep { $_ ne "$race" } @races;
+				last;
+			}
+		}
+	}
+	return @races;
+}
 
 # Gives the player a certain amount of starting gold (class-dependant):
 sub generate_gold
