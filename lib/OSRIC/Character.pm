@@ -23,6 +23,9 @@ use OSRIC::Class::Thief;
 use OSRIC::Util qw/d/;
 use JSON qw/encode_json/;
 
+# These functions are ordered in this file in the order they are to be
+# called in:
+
 # Generates a new character:
 sub new
 {
@@ -71,6 +74,13 @@ sub new
 	bless $character, $class;
 }
 
+# Sets the player's irc nick:
+sub set_irc
+{
+	my $self = shift;
+	$self->{irc} = shift;
+}
+
 # Generates the 6 major stats:
 sub generate_stats
 {
@@ -114,6 +124,65 @@ sub get_available_races
 		}
 	}
 	return @races;
+}
+
+# Sets the race of the player:
+sub set_race
+{
+	my $self = shift;
+	$self->{personal}->{race} = shift;
+
+	# Increase the stats based on any racial stat boosts:
+	my $stats_boosts = "OSRIC::Race::$self->{personal}->{race}"->stats_boosts;
+	print "Stats:\n";
+	for my $stat(keys %{$self->{stats}})
+	{
+		$self->{stats}->{$stat} += $stats_boosts->{$stat};
+		print "\t$stat = $self->{stats}->{$stat}\n";
+	}
+}
+
+# Return a list of available classes based on the player's race and stats:
+sub get_available_classes
+{
+	my $self = shift;
+	my $race = $self->{personal}->{race};
+	my $possible_classes = "OSRIC::Race::$race"->permitted_classes;
+	my @classes = @$possible_classes;
+
+	# Loops over the permitted classes:
+	my $break = 0;
+	for my $classes(@$possible_classes)
+	{
+		# Loop over each class (there are some dual or triple classes):
+		for my $class(@$classes)
+		{
+			# Check if the player's stats allow for this class:
+			my $min = "OSRIC::Class::$class"->minimum_scores;
+			for my $stat(keys %$min)
+			{
+				if($self->{stats}->{$stat} < $min->{$stat})
+				{
+					# If not, remove it from the list of possible classes:
+					@classes = grep { $_ != $classes } @classes;
+
+					# Break from the loop:
+					$break = 1;
+					last;
+				}
+				last if($break);
+			}
+			$break = 0 if($break);
+		}
+	}
+	return @classes;
+}
+
+# Takes an arrayref to an array of class names, sets it to the plauer's class:
+sub set_class
+{
+	my $self = shift;
+	$self->{personal}->{classes} = shift;
 }
 
 # Gives the player a certain amount of starting gold (class-dependant):
