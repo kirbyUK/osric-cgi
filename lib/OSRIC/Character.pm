@@ -134,11 +134,9 @@ sub set_race
 
 	# Increase the stats based on any racial stat boosts:
 	my $stats_boosts = "OSRIC::Race::$self->{personal}->{race}"->stats_boosts;
-	print "Stats:\n";
 	for my $stat(keys %{$self->{stats}})
 	{
 		$self->{stats}->{$stat} += $stats_boosts->{$stat};
-		print "\t$stat = $self->{stats}->{$stat}\n";
 	}
 }
 
