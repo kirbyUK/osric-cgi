@@ -7,6 +7,9 @@ use OSRIC::Util qw/d/;
 sub max_starting_gold { 180 }
 sub get_gold { (d(6, 3) * 10) } # 3d6 * 10
 
+# The starting HP of the class:
+sub get_hp { d(8) }
+
 # Minimum score requirements:
 sub minimum_scores
 {

@@ -9,6 +9,9 @@ my @CLASSES = qw/Assassin Cleric Druid Fighter Illusionist MagicUser Paladin
 sub max_starting_gold { 0 }
 sub get_gold { 0 }
 
+# The starting HP of the class:
+sub get_hp { 0 }
+
 # Minimum score requirements:
 sub minimum_scores
 {

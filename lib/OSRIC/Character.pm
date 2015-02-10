@@ -20,7 +20,8 @@ use OSRIC::Class::Paladin;
 use OSRIC::Class::Ranger;
 use OSRIC::Class::Thief;
 
-use OSRIC::Util qw/d/;
+use OSRIC::Util qw/d con_mod/;
+use POSIX qw/ceil/;
 use JSON qw/to_json/;
 
 # These functions are ordered in this file in the order they are to be
@@ -42,7 +43,7 @@ sub new
 			xp => 0,
 			hp => 0,
 			ac => 0,
-			lvl => 0,
+			lvl => 1,
 			age => 0,
 			height => 0,
 			weight => 0,
@@ -216,6 +217,25 @@ sub generate_age
 
 	# Divide by the number of classes:
 	$self->{personal}->{age} /= @{$self->{personal}->{classes}};
+}
+
+# Generates the player's HP.
+sub generate_hp
+{
+	my $self = shift;
+
+	# Loop over each class and generate an HP value:
+	for my $class(@{$self->{personal}->{classes}})
+	{
+		$self->{personal}->{hp} += ("OSRIC::Class::$class"->get_hp +
+			con_mod($self->{stats}->{con}, $class));
+	}
+
+	# Divide by the number of classes:
+	$self->{personal}->{hp} /= @{$self->{personal}->{classes}};
+
+	# Round up if needed:
+	$self->{personal}->{hp} = ceil($self->{personal}->{hp});
 }
 
 # Encodes the character to JSON:
