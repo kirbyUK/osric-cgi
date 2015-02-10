@@ -189,12 +189,12 @@ sub generate_gold
 	my $self = shift;
 
 	# Get the classes and sort by the highest starting gold (see page 28): 
-	my @sorted = sort { "OSRIC::Class::$a"->max_starting_gold <=> 
-						"OSRIC::Class::$b"->max_starting_gold }
+	my @sorted = sort { "OSRIC::Class::$b"->max_starting_gold <=> 
+						"OSRIC::Class::$a"->max_starting_gold }
 						@{$self->{personal}->{classes}};
 
 	# Generate the starting gold:
-	$self->{wealth}->{coins} = "OSRIC::Class::$classes[0]"->get_gold;
+	$self->{wealth}->{coins} = "OSRIC::Class::$sorted[0]"->get_gold;
 }
 
 # Encodes the character to JSON:
