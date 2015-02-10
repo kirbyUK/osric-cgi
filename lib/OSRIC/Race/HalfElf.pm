@@ -38,7 +38,7 @@ sub ages
 		magicuser 	=> sub { 30 + d(8, 2) },
 		paladin 	=> sub { 22 + d(4, 3) },
 		ranger 		=> sub { 22 + d(4, 3) },
-		theif 		=> sub { 22 + d(8, 3) },
+		thief 		=> sub { 22 + d(8, 3) },
 	}
 }
 
