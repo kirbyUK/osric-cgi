@@ -21,7 +21,7 @@ use OSRIC::Class::Ranger;
 use OSRIC::Class::Thief;
 
 use OSRIC::Util qw/d/;
-use JSON qw/encode_json/;
+use JSON qw/to_json/;
 
 # These functions are ordered in this file in the order they are to be
 # called in:
@@ -198,10 +198,23 @@ sub generate_gold
 }
 
 # Encodes the character to JSON:
-sub to_json
+sub as_json
 {
 	my $self = shift;
-	my $json = encode_json $self;
+	my $json = to_json($self, {
+		pretty => 1,
+		convert_blessed => 1,
+		allow_blessed => 1
+	});
+	return $json;
+}
+
+# Required by the JSON module, as specified in the docs:
+sub TO_JSON
+{
+	my $self = shift;
+	my %hash = %$self;
+	return \%hash;
 }
 
 1;
