@@ -197,6 +197,27 @@ sub generate_gold
 	$self->{wealth}->{coins} = "OSRIC::Class::$sorted[0]"->get_gold;
 }
 
+# Generates the player's age. If multiple classes are used, the average is
+# taken (this was discussed with vypr):
+sub generate_age
+{
+	my $self = shift;
+
+	# Get the hash of age subs for the character's race:
+	my $race = $self->{personal}->{race};
+	my $age_subs = "OSRIC::Race::$race"->ages;
+
+	# Loop over each class and add the generated age to the player:
+	for my $class(@{$self->{personal}->{classes}})
+	{
+		my $class = lc $class;
+		$self->{personal}->{age} += &{$age_subs->{$class}};
+	}
+
+	# Divide by the number of classes:
+	$self->{personal}->{age} /= @{$self->{personal}->{classes}};
+}
+
 # Encodes the character to JSON:
 sub as_json
 {
