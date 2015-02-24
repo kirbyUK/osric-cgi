@@ -21,6 +21,6 @@ Dependancies
 Currently, osric-cgi depends on the following non-core modules (and by
 extension - their dependancies):
 
-* CGI
-* JSON
-* List::Compare
+* [CGI](http://search.cpan.org/~lds/CGI.pm-3.43/CGI.pm)
+* [JSON](http://search.cpan.org/~makamaka/JSON-2.90/lib/JSON.pm)
+* [List::Compare](http://search.cpan.org/~jkeenan/List-Compare-0.46/lib/List/Compare.pm)
