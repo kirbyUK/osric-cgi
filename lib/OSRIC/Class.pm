@@ -25,4 +25,7 @@ sub minimum_scores
 	}
 }
 
+# The allowed alignments
+sub get_alignments { }
+
 1;

@@ -1,6 +1,6 @@
 package OSRIC::Util;
 use Exporter qw/import/;
-our @EXPORT = qw/d con_mod/;
+our @EXPORT = qw/d con_mod alignments/;
 
 # Rolls a dice of the specified number:
 sub d
@@ -81,6 +81,23 @@ sub con_mod
 		}
 	}
 	return $mod;
+}
+
+# Generates the alignments because I'm too lazy to write them out:
+sub alignments
+{
+	my @a = qw/Lawful Neutral Chaotic/;
+	my @b = qw/Good Neutral Evil/;
+	my @alignments;
+	for my $a(@a)
+	{
+		for my $b(@b)
+		{
+			unless($a eq $b) { push @alignments, ($a . " " . $b); }
+			else { push @alignments, $a; }
+		}
+	}
+	return @alignments;
 }
 
 1;

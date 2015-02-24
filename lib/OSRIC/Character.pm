@@ -23,6 +23,7 @@ use OSRIC::Class::Thief;
 use OSRIC::Util qw/d con_mod/;
 use POSIX qw/ceil/;
 use JSON qw/to_json/;
+use List::Compare qw/new get_intersection/;
 
 # These functions are ordered in this file in the order they are to be
 # called in:
@@ -236,6 +237,43 @@ sub generate_hp
 
 	# Round up if needed:
 	$self->{personal}->{hp} = ceil($self->{personal}->{hp});
+}
+
+# Gets all of the player's available alignments:
+sub get_available_alignments
+{
+	my $self = shift;
+
+	# Store all the returned alignment options:
+	my @alignments;
+
+	# Loop over the player's classes:
+	my $classes = $self->{personal}->{classes};
+	for my $class(@{$classes})
+	{
+		push @alignments, "OSRIC::Class::$class"->get_alignments;
+	}
+
+	# Return the intersection of all the arrays obtained:
+	if(@alignments > 1)
+	{
+		my $lc = List::Compare->new({
+			lists => \@alignments,
+			unsorted => 1,
+		});
+		return $lc->get_intersection;
+	}
+	else
+	{
+		return @{$alignments[0]};
+	}
+}
+
+# Sets the player's alignment:
+sub set_alignment
+{
+	my $self = shift;
+	$self->{personal}->{alignment} = shift;
 }
 
 # Encodes the character to JSON:

@@ -1,6 +1,6 @@
 package OSRIC::Class::Thief;
 use parent qw(OSRIC::Class);
-use OSRIC::Util qw/d/;
+use OSRIC::Util qw/d alignments/;
 
 # A sub to get the maximum amount of starting gold (for sorting) and one to get
 # an actual amount of starting gold: 
@@ -21,6 +21,13 @@ sub minimum_scores
 		wis => 0,
 		cha => 6,
 	}
+}
+
+# The allowed alignments
+sub get_alignments
+{
+	my @a = grep { $_ =~ /(?:neutral|evil)$/i } alignments;
+	return \@a;
 }
 
 1;
