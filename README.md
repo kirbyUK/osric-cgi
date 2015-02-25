@@ -10,10 +10,10 @@ and thus aims to be quite comprehensive.
 Usage
 -----
 
-Just fill out the form on the website and it should give you JSON. Pretty easy.
-The JSON should eventually make it's way to the lovely
-[irc-osric](https://github.com/vypr/irc-osric) bot, made by vypr.
-It'll be hosted on iotek hopefully, otherwise on one of my Raspberry Pis.
+This is the demo branch, intended to demonstrate the functionality and produce
+a useable output so vypr doesn't have to wait for me to wrestle with CGI. It
+runs as an interactive command line program, just run 'osric.pl' and input what
+it tells you to. It should give you a useable JSON output.
 
 Dependancies
 ------------
