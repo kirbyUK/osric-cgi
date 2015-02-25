@@ -276,6 +276,13 @@ sub set_alignment
 	$self->{personal}->{alignment} = shift;
 }
 
+# Sets the character's name to the passed string:
+sub set_name
+{
+	my $self = shift;
+	$self->{personal}->{name} = shift;
+}
+
 # Encodes the character to JSON:
 sub as_json
 {
