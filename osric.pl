@@ -9,7 +9,6 @@ my $c = OSRIC::Character->new();
 # Get the player's IRC nick:
 print "Enter irc nick: ";
 chomp(my $irc = <STDIN>);
-$c->set_irc($irc);
 
 # Generate the player's stats:
 $c->generate_stats;
